@@ -6,7 +6,7 @@
 <h1>Welcome Login to my webpage </h1>
 <form method="post">
 <label>Enter your Email :</label>
-<input type="text" name="name"/>
+<input type="text" name="email"/>
 <br/>
 <label>Enter your Password :</label>
 <input type="password" name="password"/>

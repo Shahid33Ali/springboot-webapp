@@ -1,1 +1,1 @@
-# Tod App in Java Spring Boot
+# Todo App in Java Spring Boot

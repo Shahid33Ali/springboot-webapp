@@ -4,6 +4,7 @@
 </head>
 <body>
 <h1>Welcome Login to my webpage </h1>
+<div>${error}</div>
 <form method="post">
 <label>Enter your Email :</label>
 <input type="text" name="email"/>

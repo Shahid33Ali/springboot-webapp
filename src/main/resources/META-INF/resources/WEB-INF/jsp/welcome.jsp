@@ -4,7 +4,8 @@
 </head>
 <body>
 <h1>Welcome to my webpage </h1>
-<h2>Password: ${email}</h2>
-<h2>Email: ${password}</h2>
+
+<h2>Email: ${email}</h2>
+<div><a href="todos">Todos</a> have a look..</div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <title> Login Page </title>
 </head>
 <body>
+<div class="container">
 <h1>Welcome Login to my webpage </h1>
 <div>${error}</div>
 <form method="post">
@@ -14,5 +15,7 @@
 <br/>
 <button type="submit">Submit</button>
 </form>
+</div>
+
 </body>
 </html>

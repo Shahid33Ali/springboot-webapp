@@ -14,8 +14,11 @@ static {
 	todos.add(new Todo(2,"ShahidKhan","Learn FullStack Development",LocalDate.now().plusYears(2),false));
 	todos.add(new Todo(3,"ShahidKhan","Learn JAVA",LocalDate.now().plusYears(3),false));
 }
-public List<Todo> finByUsername(){
-	return todos;
+public List<Todo> finByUsername(String username){
+	Predicate<Todo> predicate=(todo)->todo.getUsername().equalsIgnoreCase(username);
+	return todos.stream().filter(predicate).toList();
+	
+
 }
 public void add(String username,String description,LocalDate targetdate,boolean isDone) {
 	todos.add(new Todo(todos.size()+1,username,description,targetdate,isDone));

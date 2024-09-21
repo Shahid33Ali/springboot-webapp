@@ -1,6 +1,7 @@
 package com.in30minutes.springboot.myfirstwebapp.todo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,15 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
-//@Controller
-public class TodoController {
+@Controller
+public class TodoControllerJpa {
 	private TodoService todoservice;
-	public TodoController(TodoService todoservice) {
+	private TodoRepo todorepo;
+	public TodoControllerJpa(TodoService todoservice,TodoRepo todorepo) {
 		this.todoservice=todoservice;
+		this.todorepo=todorepo;
 	}
 	@RequestMapping("todos")
 	public String todo(ModelMap map) {
-		map.put("list",todoservice.finByUsername(getLoggedInUsername()));
+		List<Todo> todos=todorepo.findByUsername(getLoggedInUsername());
+		map.put("list",todos);
 		return "alltodos";
 	}
 	@RequestMapping(value="add-todos",method=RequestMethod.GET)
@@ -35,17 +39,19 @@ public class TodoController {
 		if(result.hasErrors()) {
 			return "update";
 		}
-	todoservice.add(getLoggedInUsername(),todo.getDescription(),todo.getTargetDate(),false);
+		
+		todorepo.save(todo);
+//	todoservice.add(getLoggedInUsername(),todo.getDescription(),todo.getTargetDate(),false);
 		return "redirect:todos";
 	}
 	@RequestMapping("delete-todo")
 	public String deleteTodos(@RequestParam int id) {
-		todoservice.delete(id);
+		todorepo.deleteById(id);
 		return "redirect:todos";
 	}
 	@RequestMapping(value="update-todo",method=RequestMethod.GET)
 	public String updateTodos(@RequestParam int id,ModelMap map) {
-		Todo todo=todoservice.get(id);
+		Todo todo=todorepo.findById(id).get();
 		map.put("todo", todo);
 		return "update";
 	}
@@ -54,7 +60,7 @@ public class TodoController {
 		if(result.hasErrors()) {
 			return "update";
 		}
-		todoservice.update(todo.getId(),todo);
+		todorepo.save(todo);
 		return "redirect:todos";
 	}
 	public String getLoggedInUsername() {
